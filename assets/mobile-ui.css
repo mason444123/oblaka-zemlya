@@ -68,8 +68,8 @@
   pointer-events:none;
   animation:landing-side-glow 2.8s ease-in-out infinite;
 }
-.start-page .brand-card--oblaka { --ring-y:32.6%; --ring-size:min(54vw,260px); }
-.start-page .brand-card--zemlya { --ring-y:34.4%; --ring-size:min(58vw,278px); }
+.start-page .brand-card--oblaka { --ring-y:32.6%; --ring-size:min(55.5vw,278px); }
+.start-page .brand-card--zemlya { --ring-y:34.4%; --ring-size:min(58vw,292px); }
 .start-page .brand-card::before { --ring:rgba(126,255,246,.82); --ring-soft:rgba(29,223,211,.34); }
 .start-page .brand-card::after { --ring:rgba(255,187,108,.82); --ring-soft:rgba(245,98,37,.32); animation-delay:-1.7s; }
 .start-page .brand-card--oblaka::after { display:none; }
