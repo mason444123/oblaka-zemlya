@@ -51,32 +51,34 @@
   object-position: center;
 }
 .brand-card__fallback { z-index: 0; transform:translateY(30px) scale(1.08); }
-/* Device-independent glow rings: clipped by the card, so they can never escape the artwork. */
+/* Animated light spills sit at the sides of the original circles — no added outline. */
 .start-page .brand-card::before,
 .start-page .brand-card::after {
   content:"";
   position:absolute;
   z-index:1;
   left:50%;
-  top:var(--ring-y);
-  width:var(--ring-size);
-  aspect-ratio:1;
-  border:2px solid var(--ring);
-  border-radius:50%;
-  box-shadow:-16px 0 28px var(--ring-soft),16px 0 28px var(--ring-soft),inset -7px 0 13px var(--ring-soft),inset 7px 0 13px var(--ring-soft);
+  top:var(--glow-y);
+  width:calc(var(--glow-diameter) + 92px);
+  height:var(--glow-diameter);
   transform:translate(-50%,-50%);
+  background:
+    radial-gradient(ellipse 38% 62% at 3% 50%,var(--glow-strong) 0%,var(--glow-soft) 34%,transparent 72%),
+    radial-gradient(ellipse 38% 62% at 97% 50%,var(--glow-strong) 0%,var(--glow-soft) 34%,transparent 72%);
+  filter:blur(5px);
   pointer-events:none;
   animation:landing-side-glow 2.8s ease-in-out infinite;
 }
-.start-page .brand-card--oblaka { --ring-y:32.6%; --ring-size:min(55.5vw,278px); }
-.start-page .brand-card--zemlya { --ring-y:34.4%; --ring-size:min(58vw,292px); }
-.start-page .brand-card::before { --ring:rgba(126,255,246,.82); --ring-soft:rgba(29,223,211,.34); }
-.start-page .brand-card::after { --ring:rgba(255,187,108,.82); --ring-soft:rgba(245,98,37,.32); animation-delay:-1.7s; }
+/* Calibrated from the mobile screenshot: center of each original printed circle. */
+.start-page .brand-card--oblaka { --glow-y:37%; --glow-diameter:min(55vw,278px); }
+.start-page .brand-card--zemlya { --glow-y:37%; --glow-diameter:min(60vw,292px); }
+.start-page .brand-card::before { --glow-strong:rgba(56,255,242,.68); --glow-soft:rgba(29,223,211,.30); }
+.start-page .brand-card::after { --glow-strong:rgba(255,192,94,.64); --glow-soft:rgba(245,98,37,.30); animation-delay:-1.4s; }
 .start-page .brand-card--oblaka::after { display:none; }
 .start-page .brand-card--zemlya::before { display:none; }
 @keyframes landing-side-glow {
-  0%,100% { opacity:.76; box-shadow:-16px 0 28px var(--ring-soft),16px 0 28px var(--ring-soft),inset -7px 0 13px var(--ring-soft),inset 7px 0 13px var(--ring-soft); }
-  50% { opacity:1; box-shadow:-30px 0 46px var(--ring-soft),30px 0 46px var(--ring-soft),inset -12px 0 20px var(--ring-soft),inset 12px 0 20px var(--ring-soft); }
+  0%,100% { opacity:.48; filter:blur(4px); }
+  50% { opacity:.92; filter:blur(8px); }
 }
 .brand-card__video { z-index: 1; opacity: 0; transition: opacity .35s ease, transform .9s cubic-bezier(.2,.7,0,1), filter .6s ease; }
 .brand-card__video.is-playing { opacity: 1; }
