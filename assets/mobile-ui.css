@@ -50,7 +50,7 @@
   object-fit: cover;
   object-position: center;
 }
-.brand-card__fallback { z-index: 0; transform:translateY(10px) scale(1.02); }
+.brand-card__fallback { z-index: 0; transform:translateY(20px) scale(1.04); }
 .brand-card__video { z-index: 1; opacity: 0; transition: opacity .35s ease, transform .9s cubic-bezier(.2,.7,0,1), filter .6s ease; }
 .brand-card__video.is-playing { opacity: 1; }
 .brand-card__shade { z-index: 2; }
