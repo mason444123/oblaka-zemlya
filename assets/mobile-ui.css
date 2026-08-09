@@ -50,35 +50,34 @@
   object-fit: cover;
   object-position: center;
 }
-.brand-card__fallback { z-index: 0; transform:translateY(30px) scale(1.08); }
-/* Animated light spills sit at the sides of the original circles — no added outline. */
+.brand-card__fallback { z-index: 0; }
+/* Exact circular glow over the printed logo rim. The shadow is outer-only: no inset light. */
 .start-page .brand-card::before,
 .start-page .brand-card::after {
   content:"";
   position:absolute;
   z-index:1;
   left:50%;
-  top:var(--glow-y);
-  width:calc(var(--glow-diameter) + 92px);
-  height:var(--glow-diameter);
+  top:var(--rim-y);
+  width:var(--rim-diameter);
+  aspect-ratio:1;
+  border:2px solid var(--rim);
+  border-radius:50%;
   transform:translate(-50%,-50%);
-  background:
-    radial-gradient(ellipse 38% 62% at 3% 50%,var(--glow-strong) 0%,var(--glow-soft) 34%,transparent 72%),
-    radial-gradient(ellipse 38% 62% at 97% 50%,var(--glow-strong) 0%,var(--glow-soft) 34%,transparent 72%);
-  filter:blur(5px);
+  box-shadow:0 0 7px var(--rim),0 0 18px var(--rim-soft),0 0 34px var(--rim-soft);
   pointer-events:none;
-  animation:landing-side-glow 2.8s ease-in-out infinite;
+  animation:landing-rim-glow 2.6s ease-in-out infinite;
 }
-/* Calibrated from the mobile screenshot: center of each original printed circle. */
-.start-page .brand-card--oblaka { --glow-y:37%; --glow-diameter:min(55vw,278px); }
-.start-page .brand-card--zemlya { --glow-y:37%; --glow-diameter:min(60vw,292px); }
-.start-page .brand-card::before { --glow-strong:rgba(56,255,242,.68); --glow-soft:rgba(29,223,211,.30); }
-.start-page .brand-card::after { --glow-strong:rgba(255,192,94,.64); --glow-soft:rgba(245,98,37,.30); animation-delay:-1.4s; }
+/* Measured from the restored portrait posters at the phone viewport. */
+.start-page .brand-card--oblaka { --rim-y:36.4%; --rim-diameter:min(56.2vw,281px); }
+.start-page .brand-card--zemlya { --rim-y:37.3%; --rim-diameter:min(58.7vw,294px); }
+.start-page .brand-card::before { --rim:rgba(89,255,244,.82); --rim-soft:rgba(29,223,211,.38); }
+.start-page .brand-card::after { --rim:rgba(255,192,100,.82); --rim-soft:rgba(245,98,37,.38); animation-delay:-1.3s; }
 .start-page .brand-card--oblaka::after { display:none; }
 .start-page .brand-card--zemlya::before { display:none; }
-@keyframes landing-side-glow {
-  0%,100% { opacity:.48; filter:blur(4px); }
-  50% { opacity:.92; filter:blur(8px); }
+@keyframes landing-rim-glow {
+  0%,100% { opacity:.64; box-shadow:0 0 6px var(--rim),0 0 15px var(--rim-soft),0 0 28px var(--rim-soft); }
+  50% { opacity:1; box-shadow:0 0 9px var(--rim),0 0 25px var(--rim-soft),0 0 48px var(--rim-soft); }
 }
 .brand-card__video { z-index: 1; opacity: 0; transition: opacity .35s ease, transform .9s cubic-bezier(.2,.7,0,1), filter .6s ease; }
 .brand-card__video.is-playing { opacity: 1; }
