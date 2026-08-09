@@ -5,22 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#041315">
   <title>Облака — Lounge Bar</title>
-  <link rel="stylesheet" href="assets/style.css?v=1">
+  <link rel="stylesheet" href="assets/style.css?v=43">
 </head>
 <body class="venue-page venue-page--oblaka">
   <a class="back-link" href="index.html"><span>←</span> Все заведения</a>
   <main class="venue">
-    <section class="venue-hero">
-      <div class="venue-hero__image"><img src="assets/oblaka-menu.jpg" alt="Облака Lounge Bar"></div>
-      <div class="venue-hero__copy">
-        <p class="kicker">LOUNGE BAR</p>
-        <h1>ОБЛАКА</h1>
-        <p>Лёгкий свет, мягкий звук и ночи без спешки.</p>
-        <a href="#menu" class="venue-button">Смотреть меню <span>↓</span></a>
+    <section class="venue-hero venue-hero--video">
+      <div class="venue-hero__image venue-hero__image--video">
+        <video class="hero-video hero-video--mobile" autoplay muted loop playsinline preload="metadata" aria-label="Атмосфера Облака Lounge Bar"><source src="assets/oblaka-hero.mp4" type="video/mp4"></video>
+        <video class="hero-video hero-video--desktop" autoplay muted loop playsinline preload="metadata" aria-label="Атмосфера Облака Lounge Bar"><source src="assets/oblaka-hero-desktop.mp4" type="video/mp4"></video>
+        <span class="venue-hero__video-shade"></span>
+      </div>
+      <div class="venue-hero__copy"><p class="kicker">LOUNGE BAR</p><h1>ОБЛАКА</h1><p>Лёгкий свет, мягкий звук и ночи без спешки.</p><a href="#formats" class="venue-button">Смотреть меню <span>↓</span></a></div>
+      <a class="venue-booking-button" href="oblaka-booking.html"><span>Заказать столик</span></a>
+    </section>
+    <section class="menu-gallery menu-gallery--compact" id="formats">
+      <div class="menu-gallery__items">
+        <a class="menu-gallery__card menu-gallery__card--cocktails" href="oblaka-menu.html"><div class="menu-gallery__card-main"><h3>Коктейли</h3><p>Авторские позиции, чай, лимонады и напитки.</p></div></a>
+        <a class="menu-gallery__card menu-gallery__card--hookah" href="oblaka-hookah.html"><div class="menu-gallery__card-main"><h3>Кальяны</h3><p>Классические, premium и авторские чаши.</p></div></a>
+        <a class="menu-gallery__card menu-gallery__card--domes" href="oblaka-domes.html"><div class="menu-gallery__card-main"><h3>Купола</h3><p>Забронируйте отдельный купол для своей компании.</p></div></a>
       </div>
     </section>
-    <section id="menu" class="venue-menu"><p class="kicker">МЕНЮ</p><h2>Облака<br>на вкус</h2><img src="assets/oblaka-menu.jpg" alt="Меню Облака"></section>
   </main>
-  <script src="assets/site.js?v=1"></script>
+  <script src="assets/site.js?v=7"></script>
+  <script src="assets/swipe-back.js?v=1"></script>
 </body>
 </html>
