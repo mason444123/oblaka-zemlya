@@ -1,0 +1,49 @@
+/* Telegram Mini App: keep in-page back controls below Telegram's native top-left control. */
+.back-link,
+.domes-picker__back,
+.hookah-picker__back,
+.hookah-detail__back,
+.dome-detail__back {
+  position: fixed !important;
+  z-index: 30 !important;
+  top: max(88px, calc(env(safe-area-inset-top) + 72px)) !important;
+  left: max(18px, env(safe-area-inset-left)) !important;
+  right: auto !important;
+  bottom: auto !important;
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 10px 14px;
+  border: 1px solid rgba(244,238,229,.24);
+  border-radius: 999px;
+  background: rgba(4,19,21,.78);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+  backdrop-filter: blur(12px);
+}
+
+/* Booking: content starts safely under Telegram chrome, actions stay compact at the bottom. */
+.booking {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: max(170px, 20svh) !important;
+  padding-bottom: max(34px, calc(env(safe-area-inset-bottom) + 22px)) !important;
+}
+.booking__actions {
+  margin-top: auto !important;
+  padding-top: clamp(42px, 9svh, 110px);
+}
+.booking__action {
+  min-height: 82px !important;
+  align-self: auto;
+}
+
+@media (max-width:720px) {
+  .booking {
+    padding-top: max(150px, 19svh) !important;
+  }
+  .booking__actions {
+    padding-top: clamp(34px, 7svh, 72px);
+  }
+}
