@@ -101,3 +101,10 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 @media (max-width:720px) { .booking__action { min-height:118px; } }
 .booking__actions { margin-top:20px; }.booking__action { min-height:112px; padding:18px 20px; }.booking__action span { font-size:clamp(18px,2.25vw,25px); }
 .booking__actions { gap:10px; margin-top:15px; }.booking__action { min-height:82px; padding:14px 18px; align-items:center; justify-content:center; text-align:center; }.booking__action span { font-size:clamp(16px,2vw,21px); }
+
+/* Telegram WebView: a static poster is visible until video playback has actually begun. */
+.brand-card__fallback,.brand-card__video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 68%; }
+.brand-card__fallback { z-index:0; display:block; }
+.brand-card__video { z-index:1; opacity:0; transition:opacity .35s ease,transform .9s cubic-bezier(.2,.7,0,1),filter .6s ease; }
+.brand-card__video.is-playing { opacity:1; }
+.brand-card__shade { z-index:2; }

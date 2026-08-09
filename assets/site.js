@@ -15,8 +15,8 @@ if ('IntersectionObserver' in window && galleryCards.length) {
 document.querySelectorAll('.brand-card').forEach((card) => {
   const video = card.querySelector('.brand-card__video');
   if (!video) return;
-  const play = () => video.play().catch(() => {});
-  const pause = () => { video.pause(); video.currentTime = 0; };
+  const play = () => video.play().then(() => video.classList.add('is-playing')).catch(() => {});
+  const pause = () => { video.pause(); video.currentTime = 0; video.classList.remove('is-playing'); };
   card.addEventListener('pointerenter', play);
   card.addEventListener('pointerleave', pause);
   card.addEventListener('focusin', play);
