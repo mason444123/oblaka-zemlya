@@ -15,12 +15,22 @@ if ('IntersectionObserver' in window && galleryCards.length) {
 document.querySelectorAll('.brand-card').forEach((card) => {
   const video = card.querySelector('.brand-card__video');
   if (!video) return;
-  const play = () => video.play().catch(() => {});
-  const pause = () => { video.pause(); video.currentTime = 0; };
+  const play = () => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.play().catch(() => {});
+  };
+  const pause = () => { video.pause(); video.currentTime = 0; video.classList.remove('is-playing'); };
+  video.addEventListener('playing', () => video.classList.add('is-playing'));
+  video.addEventListener('error', () => video.classList.remove('is-playing'));
+  video.addEventListener('canplay', play, { once: true });
   card.addEventListener('pointerenter', play);
   card.addEventListener('pointerleave', pause);
   card.addEventListener('focusin', play);
   card.addEventListener('focusout', pause);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) play(); });
+  play();
 });
 
 if (document.body.classList.contains('venue-page--oblaka') && !sessionStorage.getItem('oblaka-age-confirmed')) {
