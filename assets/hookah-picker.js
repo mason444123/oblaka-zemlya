@@ -18,29 +18,22 @@
     extras: {
       label: 'Кальянная карта',
       note: 'Паровые коктейли, форматы чаш и специальные предложения.',
-      items: [
-        ['Классический', 'Паровой коктейль · 1 200 ₽'],
-        ['Premium', 'Паровой коктейль · 1 500 ₽'],
-        ['Premium X', 'Паровой коктейль · 2 000 ₽'],
-        ['Авторский «Облака»', 'Паровой коктейль · 2 500 ₽'],
-        ['Глина', 'Тип чаши · включено в стоимость'],
-        ['Яблоко', 'Тип чаши · +300 ₽'],
-        ['Цитрус', 'Тип чаши · +400 ₽'],
-        ['Гранат', 'Тип чаши · +600 ₽'],
-        ['Ананас', 'Тип чаши · +1 000 ₽'],
-        ['Убивашка', 'Для интенсивного курения: плотная забивка и максимальная отдача вкуса.'],
-        ['Турка', 'Для умеренного курения: ровный прогрев и сбалансированная крепость.'],
-        ['Фанел', 'Для мягкого курения: сироп остаётся в чаше, вкус раскрывается плавно.'],
-        ['Дневное предложение', 'С 12:00 до 16:00 — кальян 800 ₽.']
+      sections: [
+        { title: 'Специальное предложение', items: [['Дневное предложение', 'С 12:00 до 16:00 — кальян 800 ₽.']] },
+        { title: 'Паровые коктейли', items: [['Классический', '1 200 ₽'], ['Premium', '1 500 ₽'], ['Premium X', '2 000 ₽'], ['Авторский «Облака»', '2 500 ₽']] },
+        { title: 'Чаши', items: [['Глина', 'Включено в стоимость'], ['Яблоко', '+300 ₽'], ['Цитрус', '+400 ₽'], ['Гранат', '+600 ₽'], ['Ананас', '+1 000 ₽']] },
+        { title: 'Формат курения', items: [['Убивашка', 'Интенсивное курение: плотная забивка и максимальная отдача вкуса.'], ['Турка', 'Умеренное курение: ровный прогрев и сбалансированная крепость.'], ['Фанел', 'Мягкое курение: вкус раскрывается плавно, сироп остаётся в чаше.']] }
       ]
     }
   };
   const home = () => {
-    content.innerHTML = `<section class="hookah-home"><div class="hookah-home__intro"><p>КАЛЬЯНЫ</p><h1>Выберите<br>направление</h1></div><div class="hookah-categories">${Object.entries(catalog).map(([key, group]) => `<button class="hookah-category hookah-category--${key}" type="button" data-category="${key}"><strong>${group.label}</strong><em>${group.note}</em><i>Открыть →</i></button>`).join('')}</div></section>`;
+    const card = (key, group) => `<button class="hookah-category hookah-category--${key}" type="button" data-category="${key}"><strong>${group.label}</strong><em>${group.note}</em><i>Открыть →</i></button>`;
+    content.innerHTML = `<section class="hookah-home"><div class="hookah-home__intro"><p>КАЛЬЯНЫ</p><h1>Выберите<br>направление</h1></div><div class="hookah-feature">${card('extras', catalog.extras)}</div><div class="hookah-tobacco-heading"><p>АССОРТИМЕНТ ТАБАКА</p><span>Листовые коллекции для вашего кальяна</span></div><div class="hookah-categories">${card('leaf', catalog.leaf)}${card('cigar', catalog.cigar)}</div></section>`;
   };
   const detail = key => {
     const group = catalog[key];
-    content.innerHTML = `<section class="hookah-detail hookah-detail--${key}"><button class="hookah-detail__back" type="button" data-back>← Все направления</button><div class="hookah-detail__intro"><p>${group.label.toUpperCase()}</p><h1>${group.label}</h1><span>${group.note}</span></div><div class="hookah-list">${group.items.map(([name, description]) => `<article class="hookah-item"><h2>${name}</h2><p>${description}</p></article>`).join('')}</div></section>`;
+    const list = group.sections ? group.sections.map(section => `<section class="hookah-menu-section${section.title === 'Специальное предложение' ? ' hookah-menu-section--special' : ''}"><h2>${section.title}</h2><div class="hookah-list">${section.items.map(([name, description]) => `<article class="hookah-item"><h3>${name}</h3><p>${description}</p></article>`).join('')}</div></section>`).join('') : `<div class="hookah-list">${group.items.map(([name, description]) => `<article class="hookah-item"><h2>${name}</h2><p>${description}</p></article>`).join('')}</div>`;
+    content.innerHTML = `<section class="hookah-detail hookah-detail--${key}"><button class="hookah-detail__back" type="button" data-back>← Все направления</button><nav class="hookah-filter" aria-label="Категории кальянной карты">${Object.entries(catalog).map(([filterKey, filter]) => `<button type="button" data-category="${filterKey}" class="${filterKey === key ? 'is-active' : ''}">${filter.label}</button>`).join('')}</nav><div class="hookah-detail__intro"><p>КАЛЬЯННАЯ КАРТА</p><h1>${group.label}</h1><span>${group.note}</span></div>${list}</section>`;
   };
   content.addEventListener('click', event => {
     const category = event.target.closest('[data-category]');

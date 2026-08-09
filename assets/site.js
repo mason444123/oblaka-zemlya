@@ -12,7 +12,16 @@ if ('IntersectionObserver' in window && galleryCards.length) {
   galleryCards.forEach((card) => revealCards.observe(card));
 }
 
-// The landing uses static cover art. Videos remain in the markup only as source material and are not started.
+document.querySelectorAll('.brand-card').forEach((card) => {
+  const video = card.querySelector('.brand-card__video');
+  if (!video) return;
+  const play = () => video.play().catch(() => {});
+  const pause = () => { video.pause(); video.currentTime = 0; };
+  card.addEventListener('pointerenter', play);
+  card.addEventListener('pointerleave', pause);
+  card.addEventListener('focusin', play);
+  card.addEventListener('focusout', pause);
+});
 
 if (document.body.classList.contains('venue-page--oblaka') && !sessionStorage.getItem('oblaka-age-confirmed')) {
   const gate = document.createElement('section');

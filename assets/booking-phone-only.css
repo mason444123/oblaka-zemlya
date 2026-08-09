@@ -1,0 +1,1 @@
+.booking__actions{display:flex;justify-content:center;margin-top:42px}.booking__action{width:min(100%,350px)}@media(max-width:720px){.booking__actions{margin-top:30px}.booking__action{width:min(100%,320px)}}
