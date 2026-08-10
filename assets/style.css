@@ -137,3 +137,18 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 @media (prefers-reduced-motion:reduce) {
   .start-page .portal .brand-card__video { display:none; }
 }
+
+/* Static portal: two invisible touch/click areas precisely over the logo groups. */
+.start-page { background:#000; }
+.portal-static { position:relative; min-height:100svh; display:grid; place-items:center; overflow:hidden; background:#000; }
+.portal-static__background { display:block; width:auto; height:100svh; max-width:100vw; object-fit:contain; }
+.portal-static__link { position:absolute; z-index:1; left:50%; width:min(72vw,540px); transform:translateX(-50%); border-radius:50%; -webkit-tap-highlight-color:transparent; }
+.portal-static__link--oblaka { top:12%; height:36%; }
+.portal-static__link--zemlya { top:53%; height:36%; }
+.portal-static__link:focus-visible { outline:2px solid rgba(255,255,255,.88); outline-offset:5px; }
+@media (max-width:720px) {
+  .portal-static__background { width:100vw; height:auto; min-height:100svh; object-fit:cover; }
+  .portal-static__link { width:78vw; }
+  .portal-static__link--oblaka { top:11%; height:37%; }
+  .portal-static__link--zemlya { top:52%; height:38%; }
+}
