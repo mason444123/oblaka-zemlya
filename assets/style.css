@@ -108,3 +108,32 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 .brand-card__video { z-index:1; opacity:0; transition:opacity .35s ease,transform .9s cubic-bezier(.2,.7,0,1),filter .6s ease; }
 .brand-card__video.is-playing { opacity:1; }
 .brand-card__shade { z-index:2; }
+
+/* One 9:16 master clip, shown as its fixed upper and lower halves. */
+.start-page .portal { position:relative; }
+.start-page .portal .brand-card__fallback { display:none; }
+.start-page .portal .brand-card__shade { background:transparent; pointer-events:none; transition:background .32s ease; }
+.start-page .portal .brand-card__video {
+  top:0 !important;
+  right:auto !important;
+  bottom:auto !important;
+  left:50% !important;
+  width:100% !important;
+  height:200% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:translateX(-50%) !important;
+  opacity:1 !important;
+  background:#000;
+  transition:filter .32s ease;
+}
+.start-page .portal .brand-card--zemlya .brand-card__video { top:auto !important; bottom:0 !important; }
+.start-page .portal.has-active-card .brand-card:not(.is-active) .brand-card__video { filter:brightness(.22) saturate(.45); }
+.start-page .portal.has-active-card .brand-card:not(.is-active) .brand-card__shade { background:rgba(0,0,0,.45); }
+.start-page .portal .brand-card.is-active .brand-card__video { filter:brightness(1) saturate(1); }
+@media (max-width:720px) {
+  .start-page .portal .brand-card__video { object-fit:cover !important; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .start-page .portal .brand-card__video { display:none; }
+}

@@ -12,16 +12,48 @@ if ('IntersectionObserver' in window && galleryCards.length) {
   galleryCards.forEach((card) => revealCards.observe(card));
 }
 
-document.querySelectorAll('.brand-card').forEach((card) => {
-  const video = card.querySelector('.brand-card__video');
-  if (!video) return;
-  const play = () => video.play().then(() => video.classList.add('is-playing')).catch(() => {});
-  const pause = () => { video.pause(); video.currentTime = 0; video.classList.remove('is-playing'); };
-  card.addEventListener('pointerenter', play);
-  card.addEventListener('pointerleave', pause);
-  card.addEventListener('focusin', play);
-  card.addEventListener('focusout', pause);
-});
+const portal = document.querySelector('.portal');
+const portalCards = [...document.querySelectorAll('.brand-card')];
+
+if (portal && portalCards.length) {
+  const stop = (card) => {
+    const video = card.querySelector('.brand-card__video');
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+  };
+
+  const activate = (activeCard) => {
+    portalCards.forEach((card) => {
+      const isActive = card === activeCard;
+      card.classList.toggle('is-active', isActive);
+      if (!isActive) stop(card);
+    });
+    portal.classList.add('has-active-card');
+    const video = activeCard.querySelector('.brand-card__video');
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  };
+
+  const deactivate = () => {
+    portalCards.forEach((card) => {
+      card.classList.remove('is-active');
+      stop(card);
+    });
+    portal.classList.remove('has-active-card');
+  };
+
+  portalCards.forEach((card) => {
+    card.addEventListener('pointerenter', () => activate(card));
+    card.addEventListener('focusin', () => activate(card));
+  });
+  portal.addEventListener('pointerleave', deactivate);
+  portal.addEventListener('focusout', (event) => {
+    if (!portal.contains(event.relatedTarget)) deactivate();
+  });
+}
 
 if (document.body.classList.contains('venue-page--oblaka') && !sessionStorage.getItem('oblaka-age-confirmed')) {
   const gate = document.createElement('section');
