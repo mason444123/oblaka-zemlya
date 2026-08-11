@@ -55,6 +55,13 @@ if (portal && portalCards.length) {
   });
 }
 
+// Do not expose iOS's native paused-video play control over the hero poster.
+// The video becomes visible only after Safari has actually allowed autoplay.
+document.querySelectorAll('.venue-hero__image--video .hero-video').forEach((video) => {
+  video.addEventListener('playing', () => video.classList.add('is-playing'));
+  video.addEventListener('pause', () => video.classList.remove('is-playing'));
+});
+
 if (document.body.classList.contains('venue-page--oblaka') && !sessionStorage.getItem('oblaka-age-confirmed')) {
   const gate = document.createElement('section');
   gate.className = 'age-gate';
