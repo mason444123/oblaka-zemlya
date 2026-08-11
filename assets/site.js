@@ -12,48 +12,13 @@ if ('IntersectionObserver' in window && galleryCards.length) {
   galleryCards.forEach((card) => revealCards.observe(card));
 }
 
-const portal = document.querySelector('.portal');
-const portalCards = [...document.querySelectorAll('.brand-card')];
-
-if (portal && portalCards.length) {
-  const stop = (card) => {
-    const video = card.querySelector('.brand-card__video');
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
-  };
-
-  const activate = (activeCard) => {
-    portalCards.forEach((card) => {
-      const isActive = card === activeCard;
-      card.classList.toggle('is-active', isActive);
-      if (!isActive) stop(card);
-    });
-    portal.classList.add('has-active-card');
-    const video = activeCard.querySelector('.brand-card__video');
-    if (video) {
-      video.currentTime = 0;
-      video.play().catch(() => {});
-    }
-  };
-
-  const deactivate = () => {
-    portalCards.forEach((card) => {
-      card.classList.remove('is-active');
-      stop(card);
-    });
-    portal.classList.remove('has-active-card');
-  };
-
-  portalCards.forEach((card) => {
-    card.addEventListener('pointerenter', () => activate(card));
-    card.addEventListener('focusin', () => activate(card));
-  });
-  portal.addEventListener('pointerleave', deactivate);
-  portal.addEventListener('focusout', (event) => {
-    if (!portal.contains(event.relatedTarget)) deactivate();
-  });
-}
+const portalVideos = document.querySelectorAll('.brand-card__video');
+portalVideos.forEach((video) => {
+  // On supported devices the two branded films play continuously.
+  // If iOS Low Power Mode blocks autoplay, the poster stays visible instead.
+  video.addEventListener('playing', () => video.classList.add('is-playing'));
+  video.addEventListener('pause', () => video.classList.remove('is-playing'));
+});
 
 // Do not expose iOS's native paused-video play control over the hero poster.
 // The video becomes visible only after Safari has actually allowed autoplay.
