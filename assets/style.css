@@ -109,50 +109,6 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 .brand-card__video.is-playing { opacity:1; }
 .brand-card__shade { z-index:2; }
 
-/* One 9:16 master clip, shown as its fixed upper and lower halves. */
-.start-page .portal { position:relative; }
-.start-page .portal .brand-card__fallback { display:none; }
-.start-page .portal .brand-card__shade { background:transparent; pointer-events:none; transition:background .32s ease; }
-.start-page .portal .brand-card__video {
-  top:0 !important;
-  right:auto !important;
-  bottom:auto !important;
-  left:50% !important;
-  width:100% !important;
-  height:200% !important;
-  object-fit:contain !important;
-  object-position:center !important;
-  transform:translateX(-50%) !important;
-  opacity:1 !important;
-  background:#000;
-  transition:filter .32s ease;
-}
-.start-page .portal .brand-card--zemlya .brand-card__video { top:auto !important; bottom:0 !important; }
-.start-page .portal.has-active-card .brand-card:not(.is-active) .brand-card__video { filter:brightness(.22) saturate(.45); }
-.start-page .portal.has-active-card .brand-card:not(.is-active) .brand-card__shade { background:rgba(0,0,0,.45); }
-.start-page .portal .brand-card.is-active .brand-card__video { filter:brightness(1) saturate(1); }
-@media (max-width:720px) {
-  .start-page .portal .brand-card__video { object-fit:cover !important; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .start-page .portal .brand-card__video { display:none; }
-}
-
-/* Static portal: two invisible touch/click areas precisely over the logo groups. */
-.start-page { background:#000; }
-.portal-static { position:relative; min-height:100svh; display:grid; place-items:center; overflow:hidden; background:#000; }
-.portal-static__background { display:block; width:auto; height:100svh; max-width:100vw; object-fit:contain; }
-.portal-static__link { position:absolute; z-index:1; left:50%; width:min(72vw,540px); transform:translateX(-50%); border-radius:50%; -webkit-tap-highlight-color:transparent; }
-.portal-static__link--oblaka { top:12%; height:36%; }
-.portal-static__link--zemlya { top:53%; height:36%; }
-.portal-static__link:focus-visible { outline:2px solid rgba(255,255,255,.88); outline-offset:5px; }
-@media (max-width:720px) {
-  .portal-static__background { width:100vw; height:auto; min-height:100svh; object-fit:cover; }
-  .portal-static__link { width:78vw; }
-  .portal-static__link--oblaka { top:11%; height:37%; }
-  .portal-static__link--zemlya { top:52%; height:38%; }
-}
-
 /* iOS Low Power Mode can reject autoplay. Keep the static frame above the
    paused native video, and reveal moving footage only after it truly plays. */
 .venue-hero__image--video .hero-video-poster,
