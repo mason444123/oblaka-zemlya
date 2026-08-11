@@ -118,7 +118,7 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 .venue-hero__image--video .hero-video.is-playing { opacity:1; }
 
 /* Larger, easier-to-tap table booking action. */
-.venue-booking-button { min-height:62px; padding:18px 31px; font-size:17px; }
+.venue-booking-button { min-height:78px; padding:23px 42px; font-size:20px; }
 @media (max-width:720px) {
-  .venue-booking-button { min-height:58px; padding:17px 28px; font-size:16px; }
+  .venue-booking-button { min-height:72px; padding:21px 38px; font-size:19px; }
 }
