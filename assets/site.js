@@ -17,6 +17,15 @@ portalVideos.forEach((video) => {
   const card = video.closest('.brand-card');
   const start = () => {
     video.loop = true;
+    // Do not fetch or decode a frame until this exact card has been hovered.
+    if (!video.dataset.loaded) {
+      const source = document.createElement('source');
+      source.src = video.dataset.src;
+      source.type = 'video/mp4';
+      video.append(source);
+      video.dataset.loaded = 'true';
+      video.load();
+    }
     // A video can retain its decoded frame after mouseleave; always restart it at frame zero.
     video.pause();
     try { video.currentTime = 0; } catch (_) {}
@@ -29,7 +38,6 @@ portalVideos.forEach((video) => {
       });
     } else {
       video.addEventListener('loadedmetadata', playFromStart, { once: true });
-      video.load();
     }
   };
   const stop = () => {
