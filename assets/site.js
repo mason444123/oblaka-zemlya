@@ -14,8 +14,19 @@ if ('IntersectionObserver' in window && galleryCards.length) {
 
 const portalVideos = document.querySelectorAll('.brand-card__video');
 portalVideos.forEach((video) => {
-  // On supported devices the two branded films play continuously.
-  // If iOS Low Power Mode blocks autoplay, the poster stays visible instead.
+  const card = video.closest('.brand-card');
+  const start = () => {
+    video.loop = true;
+    video.play().catch(() => {});
+  };
+  const stop = () => {
+    video.pause();
+    video.currentTime = 0;
+  };
+  card.addEventListener('mouseenter', start);
+  card.addEventListener('mouseleave', stop);
+  card.addEventListener('focusin', start);
+  card.addEventListener('focusout', stop);
   video.addEventListener('playing', () => video.classList.add('is-playing'));
   video.addEventListener('pause', () => video.classList.remove('is-playing'));
 });
