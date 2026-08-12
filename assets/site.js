@@ -20,8 +20,10 @@ portalVideos.forEach((video) => {
     video.play().catch(() => {});
   };
   const stop = () => {
+    // Hide the moving layer first: the static logo poster must appear immediately.
+    video.classList.remove('is-playing');
     video.pause();
-    video.currentTime = 0;
+    try { video.currentTime = 0; } catch (_) {}
   };
   card.addEventListener('mouseenter', start);
   card.addEventListener('mouseleave', stop);
