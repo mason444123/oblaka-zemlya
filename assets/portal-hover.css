@@ -1,0 +1,51 @@
+/* Portal cards: preserve the full logo composition at rest; activate only one card on hover. */
+@media (min-width:721px) and (hover:hover) {
+  .portal {
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr;
+  }
+
+  .portal .brand-card {
+    min-height:100svh;
+    border-right:1px solid rgba(244,238,229,.14) !important;
+    border-bottom:0;
+  }
+
+  .portal .brand-card:last-child { border-right:0 !important; }
+
+  /* Resting card: full, quieter logo frame — no oversized crop. */
+  .portal .brand-card__fallback,
+  .portal .brand-card__video {
+    object-fit:contain !important;
+    object-position:center !important;
+    transform:scale(.86) !important;
+    filter:brightness(.52) saturate(.62) contrast(1.03);
+    transition:transform .6s cubic-bezier(.16,1,.3,1), filter .45s ease, opacity .35s ease;
+  }
+
+  .portal .brand-card__shade {
+    background:rgba(0,0,0,.28);
+    transition:background .45s ease;
+  }
+
+  /* The selected card becomes larger and brighter; the other card recedes. */
+  .portal:has(.brand-card:hover) .brand-card:hover .brand-card__fallback,
+  .portal:has(.brand-card:hover) .brand-card:hover .brand-card__video {
+    transform:scale(.96) !important;
+    filter:brightness(.9) saturate(.95) contrast(1.04);
+  }
+
+  .portal:has(.brand-card:hover) .brand-card:hover .brand-card__shade {
+    background:linear-gradient(180deg,rgba(0,0,0,.14),transparent 52%,rgba(0,0,0,.35));
+  }
+
+  .portal:has(.brand-card:hover) .brand-card:not(:hover) .brand-card__fallback,
+  .portal:has(.brand-card:hover) .brand-card:not(:hover) .brand-card__video {
+    transform:scale(.82) !important;
+    filter:brightness(.3) saturate(.35) contrast(1.06);
+  }
+
+  .portal:has(.brand-card:hover) .brand-card:not(:hover) .brand-card__shade {
+    background:rgba(0,0,0,.62);
+  }
+}
