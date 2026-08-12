@@ -117,7 +117,14 @@ body :where(h1,h2,h3,h4,h5,h6,strong,b,button,.kicker,.brand-card__title,.brand-
 .venue-hero__image--video .hero-video { z-index:1; opacity:0; pointer-events:none; transition:opacity .3s ease; }
 .venue-hero__image--video .hero-video.is-playing { opacity:1; }
 
-/* Main portal hover only: preserve all original video framing and media settings. */
+/* Main portal hover only. The paused poster uses the exact same desktop fit as its video. */
+@media (min-width:721px) {
+  .portal .brand-card__fallback {
+    object-fit:contain !important;
+    object-position:center !important;
+    background:#000;
+  }
+}
 @media (min-width:721px) and (hover:hover) {
   .portal:has(.brand-card:hover) .brand-card:not(:hover) .brand-card__shade {
     background:rgba(0,0,0,.62);
