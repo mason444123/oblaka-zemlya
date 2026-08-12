@@ -17,7 +17,20 @@ portalVideos.forEach((video) => {
   const card = video.closest('.brand-card');
   const start = () => {
     video.loop = true;
-    video.play().catch(() => {});
+    // A video can retain its decoded frame after mouseleave; always restart it at frame zero.
+    video.pause();
+    try { video.currentTime = 0; } catch (_) {}
+    const playFromStart = () => video.play().catch(() => {});
+    if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+      video.addEventListener('seeked', playFromStart, { once: true });
+      // Some browsers do not emit seeked when the position is already exactly zero.
+      requestAnimationFrame(() => {
+        if (video.paused && video.currentTime === 0) playFromStart();
+      });
+    } else {
+      video.addEventListener('loadedmetadata', playFromStart, { once: true });
+      video.load();
+    }
   };
   const stop = () => {
     // Hide the moving layer first: the static logo poster must appear immediately.
